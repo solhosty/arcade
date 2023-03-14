@@ -98,9 +98,7 @@
     <div class="arcade-button"> 
 <WalletProvider {localStorageKey} {wallets} autoConnect />
 <ConnectionProvider {network} />
-    <WalletMultiButton>
-      Connect
-    </WalletMultiButton>
+    <WalletMultiButton/>
     </div>
     <h2>connect wallet to enter the arcade.</h2>
   </div>
