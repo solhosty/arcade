@@ -16,6 +16,8 @@
   } from "@solana/wallet-adapter-wallets";
   import { Metaplex, keypairIdentity } from "@metaplex-foundation/js";
   import { Connection } from "@solana/web3.js";
+  import Wallet from "../components/Wallet.svelte";
+  import {WalletMultiButton } from '@svelte-on-solana/wallet-adapter-ui';
 
   let nftImages = [];
   let nftAnimationUrls = [];
@@ -90,11 +92,21 @@
   
 </script>
 
-<WalletProvider {localStorageKey} {wallets} autoConnect />
-<ConnectionProvider {network} />
 <body>
   <main>
     <slot/>
+    {#if !$walletStore$?.connected}
+  <div class="wallet-before">
+    <div class="arcade-button"> 
+<WalletProvider {localStorageKey} {wallets} autoConnect />
+<ConnectionProvider {network} />
+    <WalletMultiButton>
+      Connect
+    </WalletMultiButton>
+    </div>
+    <h2>connect wallet to enter the arcade.</h2>
+  </div>
+{/if}
     {#if $walletStore$.connected && selectedAnimation}
     <h3> now playing:</h3>
     <iframe src={selectedAnimation} title= ""  ></iframe>
@@ -119,7 +131,12 @@
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,700&family=Gajraj+One&family=Rubik+Mono+One&family=Shantell+Sans:ital,wght@1,700&display=swap");
- 
+.arcade-button {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 h5 {
   font-family: "Exo 2", sans-serif;
   font-size: 1rem;
@@ -219,6 +236,17 @@ iframe {
     display: flex;
     flex-direction: column;
     position: relative;
+  }
+  h2 {
+    font-family: "Exo 2", sans-serif;
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 0%;
+    color: white;
+  }
+  .wallet-before {
+    position: relative;
+    top: 20%;
   }
   
 </style>
