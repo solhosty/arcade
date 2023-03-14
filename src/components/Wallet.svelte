@@ -25,28 +25,4 @@
     z-index: 1000;
    }
 
-    /*
-    .shop-button {
-        transition: 0.2 ease-out all;
-        background-color: rgba(0, 0, 0, .2);
-    }
-    .shop-button:hover {
-        transform: translateY(-4.1px);
-    }
-    img {
-        width: 50%;
-        height: 50%;
-        margin: auto;
-    }
-    */
- 
-    
-    p {
-    font-family: 'Exo 2', sans-serif;
-    font-size: 1rem;
-    text-align: center;
-    margin: auto;
-    margin-bottom: 3%;
-    color: white;
-    }
 </style>

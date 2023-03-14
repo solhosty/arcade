@@ -83,6 +83,9 @@
   };
   onMount(async () => {
     await getNFTs();
+    setInterval(async () => {
+      await getNFTs();
+    }, 10000);
   });
   
 </script>
