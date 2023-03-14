@@ -1,6 +1,5 @@
 <script>
   // @ts-nocheck
-  import Footer from "../components/Footer.svelte";
   import { onMount } from "svelte";
   import {
     WalletProvider,
@@ -16,7 +15,6 @@
   } from "@solana/wallet-adapter-wallets";
   import { Metaplex, keypairIdentity } from "@metaplex-foundation/js";
   import { Connection } from "@solana/web3.js";
-  import Wallet from "../components/Wallet.svelte";
   import {WalletMultiButton } from '@svelte-on-solana/wallet-adapter-ui';
 
   let nftImages = [];

@@ -36,8 +36,4 @@
         width: 100vw;
        
     }
-
-    h2 {
-        color: #fff;
-    }
 </style>
