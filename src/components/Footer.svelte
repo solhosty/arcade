@@ -28,11 +28,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100px;
+        height: 50px;
         background-color: rgba(0, 0, 0, .5);
         margin: auto;
-        position: relative;
-        bottom: 0;
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
         width: 100vw;
        
     }
