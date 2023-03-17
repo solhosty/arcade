@@ -1,6 +1,5 @@
 import { defineConfig } from "vite";
 import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
-import nodePolyfills from "rollup-plugin-node-polyfills";
 import { sveltekit } from '@sveltejs/kit/vite';
 
 // Config is based on metaplex + vite example from:
@@ -13,16 +12,22 @@ export default defineConfig({
   plugins: [sveltekit()],
   resolve: {
     alias: {
-      stream: "rollup-plugin-node-polyfills/polyfills/stream",
-      events: "rollup-plugin-node-polyfills/polyfills/events",
-      assert: "assert",
+      process: "process/browser",
+      buffer: "buffer",
       crypto: "crypto-browserify",
+      stream: "stream-browserify",
+      assert: "assert",
+      http: "stream-http",
+      https: "https-browserify",
+      os: "os-browserify",
+      url: "url",
       util: "util",
-    },
   },
+},
   define: {
     "process.env": process.env ?? {},
   },
+  
 
   optimizeDeps: {
     esbuildOptions: {

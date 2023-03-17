@@ -76,9 +76,6 @@
       for (let i = 0; i < nfts.length; i++) {
         nftAnimationUrls = nfts.map((nft) => nft.metadata.animation_url);
         nftImages = nfts.map((nft) => nft.metadata.image);
-        nftNames = nfts.map((nft) => nft.metadata.name);
-        nftDescription = nfts.map((nft) => nft.metadata.description);
-        console.log(nfts[i].metadata.animation_url);
       }
     }
   };
