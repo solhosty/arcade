@@ -17,11 +17,10 @@
   import { Connection } from "@solana/web3.js";
   import { WalletMultiButton } from "@svelte-on-solana/wallet-adapter-ui";
   import Footer from "../components/Footer.svelte";
-
   let nftImages = [];
   let nftAnimationUrls = [];
   let nftNames = [];
-
+  let nftDescriptions = [];
   let wallets;
   let walletConnected = false;
   const network =
@@ -76,6 +75,8 @@
       for (let i = 0; i < nfts.length; i++) {
         nftAnimationUrls = nfts.map((nft) => nft.metadata.animation_url);
         nftImages = nfts.map((nft) => nft.metadata.image);
+        nftNames = nfts.map((nft) => nft.metadata.name);
+        nftDescriptions = nfts.map((nft) => nft.metadata.description);
       }
     }
   };
@@ -115,10 +116,9 @@
       <div class="iframe-container">
         <iframe src={selectedAnimation} title="" />
         <div class="iframe-text">
-          <h3>now playing: </h3>
+          <h3>playing: {nftNames[nftAnimationUrls.indexOf(selectedAnimation)]} </h3>
           <h6>
-            description description description descriptio ndescription
-            description description more description
+            {nftDescriptions[nftAnimationUrls.indexOf(selectedAnimation)]}
           </h6>
         </div>
       </div>

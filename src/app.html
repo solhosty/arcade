@@ -10,4 +10,12 @@
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
+	<script type="module">
+		import process from "process";
+		import { Buffer } from "buffer";
+		window.global = window
+		window.Buffer = Buffer
+		window.process = process
+	  </script>
 </html>
+

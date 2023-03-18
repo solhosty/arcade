@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
 import { sveltekit } from '@sveltejs/kit/vite';
+import eslint from "@nabla/vite-plugin-eslint"
 
 // Config is based on metaplex + vite example from:
 // https://github.com/metaplex-foundation/js-examples/tree/main/getting-started-vite
@@ -9,7 +10,7 @@ import { sveltekit } from '@sveltejs/kit/vite';
 // See https://github.com/sveltejs/kit/issues/859
 
 export default defineConfig({
-  plugins: [sveltekit()],
+  plugins: [sveltekit(), eslint()],
   resolve: {
     alias: {
       process: "process/browser",
@@ -28,7 +29,6 @@ export default defineConfig({
     "process.env": process.env ?? {},
   },
   
-
   optimizeDeps: {
     esbuildOptions: {
       plugins: [NodeGlobalsPolyfillPlugin({ buffer: true })],
