@@ -97,7 +97,6 @@
     <slot />
     {#if !$walletStore$?.connected}
       <div class="arcade-intro">
-        <h1> test</h1>
         <h1>minion arcade</h1>
         <div class="wallet-before">
           <div class="arcade-button">
@@ -212,7 +211,7 @@
     margin-bottom: 2%;
     width: 600px;
     max-width: 100%;
-    height: 100%;
+    height: 800px;
     border-radius: 25px;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
     background-color: rgba(0, 0, 0, 0.5);
