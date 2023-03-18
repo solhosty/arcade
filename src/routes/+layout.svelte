@@ -97,6 +97,7 @@
     <slot />
     {#if !$walletStore$?.connected}
       <div class="arcade-intro">
+        <h1> test</h1>
         <h1>minion arcade</h1>
         <div class="wallet-before">
           <div class="arcade-button">
