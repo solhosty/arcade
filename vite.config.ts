@@ -13,15 +13,12 @@ export default defineConfig({
   plugins: [sveltekit()],
   resolve: {
     alias: {
-      process: "/process/browser",
       buffer: "buffer",
       crypto: "crypto-browserify",
       stream: "stream-browserify",
       http: "stream-http",
       https: "https-browserify",
       url: "url",
-      util: "util",
-      zlib: "browserify-zlib",
       
   },
 },

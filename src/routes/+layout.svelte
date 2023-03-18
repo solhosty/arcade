@@ -87,7 +87,7 @@
             window.Buffer = Buffer;
             setInterval(() => {
               getNFTs();
-            }, 1000);
+            }, 10000);
         }
   });
 </script>
