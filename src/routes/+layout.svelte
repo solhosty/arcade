@@ -17,6 +17,8 @@
   import { Connection } from "@solana/web3.js";
   import { WalletMultiButton } from "@svelte-on-solana/wallet-adapter-ui";
   import Footer from "../components/Footer.svelte";
+  import { browser } from '$app/environment';
+  import { Buffer } from 'buffer';
   let nftImages = [];
   let nftAnimationUrls = [];
   let nftNames = [];
@@ -81,9 +83,12 @@
     }
   };
   onMount(async () => {
-    setInterval(async () => {
-      await getNFTs();
-    }, 5000);
+    if(browser) {
+            window.Buffer = Buffer;
+            setInterval(() => {
+              getNFTs();
+            }, 1000);
+        }
   });
 </script>
 

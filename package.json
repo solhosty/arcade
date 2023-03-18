@@ -10,7 +10,8 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
 	"devDependencies": {
-		"@esbuild-plugins/node-modules-polyfill": "^0.2.2",
+		"@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    	"@esbuild-plugins/node-modules-polyfill": "^0.2.2",
 		"@metaplex-foundation/js": "^0.18.3",
 		"@rollup/plugin-inject": "^5.0.3",
 		"@svelte-on-solana/wallet-adapter-ui": "^1.0.21-alpha.0",
@@ -39,7 +40,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@esbuild-plugins/node-globals-polyfill": "^0.2.3",
 		"@metaplex-foundation/mpl-token-metadata": "^2.9.0",
 		"@nabla/vite-plugin-eslint": "^1.5.0",
 		"@solana/spl-token": "^0.3.7",
