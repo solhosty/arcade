@@ -111,7 +111,7 @@
     {#if $walletStore$?.connected && !selectedAnimation && nftAnimationUrls.length == 0}
     <div class="arcade-intro">
       <h1>minion arcade</h1>
-        <h2 class="loading">...loading game tokens</h2>
+        <h2 class="loading">...loading</h2>
     </div>
     {/if}
     {#if ($walletStore$.connected && selectedAnimation) || nftAnimationUrls.length > 0}
