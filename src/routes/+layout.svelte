@@ -4,6 +4,7 @@
   import {
     WalletProvider,
     ConnectionProvider,
+    WalletMultiButton,
   } from "@svelte-on-solana/wallet-adapter-ui";
   import { walletStore as walletStore$ } from "@svelte-on-solana/wallet-adapter-core";
   import {
@@ -14,7 +15,6 @@
   } from "@solana/wallet-adapter-wallets";
   import { Metaplex, keypairIdentity } from "@metaplex-foundation/js";
   import { Connection } from "@solana/web3.js";
-  import { WalletMultiButton } from "@svelte-on-solana/wallet-adapter-ui";
   import Footer from "../components/Footer.svelte";
   import { browser } from '$app/environment';
   import { Buffer } from 'buffer';
@@ -51,7 +51,6 @@
   }
   let selectedAnimation = null;
   const getNFTs = async () => {
-    if ($walletStore$?.connected) {
       const connection = new Connection(network);
       const wallet = $walletStore$;
       const identity = keypairIdentity(wallet.publicKey);
@@ -80,7 +79,6 @@
         nftDescriptions = nfts.map((nft) => nft.metadata.description);
       }
     }
-  };
   onMount(async () => {
     if(browser) {
             window.Buffer = Buffer;
