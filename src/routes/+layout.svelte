@@ -19,16 +19,17 @@
   import Footer from "../components/Footer.svelte";
   import { browser } from '$app/environment';
   import { Buffer } from 'buffer';
+
   let nftImages = [];
   let nftAnimationUrls = [];
   let nftNames = [];
   let nftDescriptions = [];
   let wallets;
   let walletConnected = false;
-  const network =
-    "https://light-autumn-sanctuary.solana-mainnet.discover.quiknode.pro/7779052a9ee594a9e6c09b7d5b28cca360f5685f/";
-  // const network = clusterApiUrl('devnet');
   const localStorageKey = "solWalletAdapter";
+  const network = "https://light-autumn-sanctuary.solana-mainnet.discover.quiknode.pro/7779052a9ee594a9e6c09b7d5b28cca360f5685f/";
+  // const network = clusterApiUrl('devnet');
+
   onMount(async () => {
     wallets = [
       new PhantomWalletAdapter(),
@@ -91,14 +92,16 @@
         }
   });
 </script>
-
 <body>
   <main>
     <slot />
     {#if !$walletStore$?.connected}
+    <div class="arcade-image bounce2">
+      <img src="/arcade.jpg" alt="" />
+      </div>
       <div class="arcade-intro">
-        <h1>minion arcade</h1>
         <div class="wallet-before">
+          <h1>minion arcade</h1>
           <div class="arcade-button">
             <WalletProvider {localStorageKey} {wallets} autoConnect />
             <ConnectionProvider {network} />
@@ -109,9 +112,11 @@
       </div>
     {/if}
     {#if $walletStore$?.connected && !selectedAnimation && nftAnimationUrls.length == 0}
-    <div class="arcade-intro">
-      <h1>minion arcade</h1>
-        <h2 class="loading">loading...</h2>
+    <div class="arcade-intro loading">
+      <h1 class="intro-title">minion arcade</h1>
+      <div class="progress">
+        <div class="color"></div>
+      </div>
     </div>
     {/if}
     {#if ($walletStore$.connected && selectedAnimation) || nftAnimationUrls.length > 0}
@@ -151,6 +156,55 @@
 
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,700&family=Gajraj+One&family=Rubik+Mono+One&family=Shantell+Sans:ital,wght@1,700&display=swap");
+  .progress{
+    position: relative;
+    height: 10px;
+    width: 90%;
+    border: 10px solid #ff796f;
+    border-radius: 15px;
+    align-self: center;
+    left: 3%;
+    margin-bottom: 5%;
+}
+.progress .color{
+    position: absolute;
+    background-color: #ffffff;
+    width: 0px;
+    height: 10px;
+    border-radius: 15px;
+    animation: progres 12s infinite linear;    
+}
+@keyframes progres {
+    0%{
+      width: 0%;
+    }
+    25%{
+        width: 50%;
+    }
+    50%{
+        width: 75%;
+    }
+    75%{
+        width: 85%;
+    }
+    100%{
+        width: 100%;
+    }
+  }
+  img {
+    width: 200px;
+    display: flex;
+    margin-bottom: 0%;
+  }
+  .arcade-image {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin: auto;
+    margin-top: 8%;
+    margin-bottom: 0%;
+  }
   .arcade-button {
     margin: auto;
     display: flex;
@@ -167,21 +221,26 @@
     margin: auto;
     justify-content: center;
     align-items: center;
-    margin-top: 15%;
+    margin-top: 0%;
+    position: relative;
+    bottom: 5%;
     border-radius: 25px;
     box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2);
   }
-  .loading {
-    position: relative;
-    top: 20%;
-  }
+  .bounce2 {
+  animation: bounce2 2s ease infinite;
+}
+@keyframes bounce2 {
+	0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+	40% {transform: translateY(-30px);}
+	60% {transform: translateY(-15px);}
+}
   .iframe-text {
     width: 100%;
     display: flex;
     flex-direction: column;
     margin: auto;
   }
-
   h5 {
     font-family: "Exo 2", sans-serif;
     font-size: 1rem;
@@ -211,7 +270,7 @@
     margin-bottom: 2%;
     width: 600px;
     max-width: 100%;
-    height: 800px;
+    height: 850px;
     border-radius: 25px;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
     background-color: rgba(0, 0, 0, 0.5);
@@ -339,7 +398,7 @@
     color: white;
     margin-bottom: 1%;
     min-width: 100%;
-    margin-top: 5%;
+    margin-top: 0%;
   }
   @media (max-width: 760px) {
     .wallet-before {
@@ -351,7 +410,11 @@
     }
     .arcade-intro {
       width: 85%;
-      margin-top: 40%;
+      margin-top: 4%;
+    }
+    .loading {
+      position: relative;
+      top: 20%;
     }
   }
 </style>

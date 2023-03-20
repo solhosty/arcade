@@ -1,12 +1,15 @@
 <footer>
+    <a href="https://twitter.com/theminionsnft" rel="noreferrer" target="_blank">
     <button>
         <img src ="./twitter.svg" alt=""/>
-   
     </button>
+</a>
+    <a href="https://discord.gg/8Z4Z4Z4" rel="noreferrer" target="_blank">
     <button>
         <img src ="./discord.svg" alt=""/>
         
     </button>
+    </a>
 </footer>
 
 <style>
