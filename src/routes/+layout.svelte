@@ -11,7 +11,6 @@
     BackpackWalletAdapter,
     LedgerWalletAdapter,
     SolflareWalletAdapter,
-    SolletExtensionWalletAdapter,
   } from "@solana/wallet-adapter-wallets";
   import { Metaplex, keypairIdentity } from "@metaplex-foundation/js";
   import { Connection } from "@solana/web3.js";
@@ -35,7 +34,6 @@
       new PhantomWalletAdapter(),
       new BackpackWalletAdapter(),
       new SolflareWalletAdapter(),
-      new SolletExtensionWalletAdapter(),
       new LedgerWalletAdapter(),
     ];
     if (wallets.length == 0) {
@@ -400,6 +398,10 @@
     min-width: 100%;
     margin-top: 0%;
   }
+  .loading {
+      position: relative;
+      top: 20%;
+    }
   @media (max-width: 760px) {
     .wallet-before {
       position: relative;
