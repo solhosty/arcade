@@ -16,9 +16,8 @@
   import { Metaplex, keypairIdentity } from "@metaplex-foundation/js";
   import { Connection } from "@solana/web3.js";
   import Footer from "../components/Footer.svelte";
-  import { browser } from '$app/environment';
-  import { Buffer } from 'buffer';
 
+  
   let nftImages = [];
   let nftAnimationUrls = [];
   let nftNames = [];
@@ -49,6 +48,7 @@
       walletConnected = false;
     }
   }
+ 
   let selectedAnimation = null;
   const getNFTs = async () => {
       const connection = new Connection(network);
@@ -79,14 +79,12 @@
         nftDescriptions = nfts.map((nft) => nft.metadata.description);
       }
     }
-  onMount(async () => {
-    if(browser) {
-            window.Buffer = Buffer;
-            setInterval(() => {
-              getNFTs();
-            }, 10000);
-        }
-  });
+    $: {
+    if (walletConnected) {
+      getNFTs();
+    }
+  }
+
 </script>
 <body>
   <main>
@@ -120,7 +118,7 @@
     {/if}
     {#if $walletStore$.connected && selectedAnimation}
       <div class="iframe-container">
-        <iframe src={selectedAnimation} title="" />
+        <iframe src={selectedAnimation} title="" loading allowfullscreen=true />
         <div class="iframe-text">
           <h3>playing: {nftNames[nftAnimationUrls.indexOf(selectedAnimation)]} </h3>
           <h6>
@@ -266,7 +264,7 @@
     margin-bottom: 2%;
     width: 600px;
     max-width: 100%;
-    height: 850px;
+    height: 100%;
     border-radius: 25px;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
     background-color: rgba(0, 0, 0, 0.5);
@@ -404,6 +402,12 @@
     .wallet-before {
       position: relative;
       top: 0%;
+    }
+    .iframe-container{
+      height: 900px;
+    }
+    iframe {
+      height: 850px;
     }
     h1 {
       font-size: 4.5rem;
