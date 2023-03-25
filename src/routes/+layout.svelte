@@ -25,7 +25,7 @@
   let wallets;
   let walletConnected = false;
   const localStorageKey = "solWalletAdapter";
-  const network = "https://rpc.helius.xyz/?api-key=f402f930-275d-4474-8f44-d6ba3b37d537";
+  const network = "https://light-autumn-sanctuary.solana-mainnet.discover.quiknode.pro/7779052a9ee594a9e6c09b7d5b28cca360f5685f/";
   // const network = clusterApiUrl('devnet');
 
   onMount(async () => {
