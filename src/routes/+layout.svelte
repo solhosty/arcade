@@ -16,7 +16,7 @@
   import { Metaplex, keypairIdentity } from "@metaplex-foundation/js";
   import { Connection } from "@solana/web3.js";
   import Footer from "../components/Footer.svelte";
-
+  import "../app.css";
   
   let nftImages = [];
   let nftAnimationUrls = [];
@@ -24,10 +24,20 @@
   let nftDescriptions = [];
   let wallets;
   let walletConnected = false;
+  const games = [
+    {
+      name: "Whack A Minion"
+    },
+    {
+      name: "Bitsweeper"
+    },
+    {
+      name: "Game of Life"
+    },
+  ]
   const localStorageKey = "solWalletAdapter";
   const network = "https://light-autumn-sanctuary.solana-mainnet.discover.quiknode.pro/7779052a9ee594a9e6c09b7d5b28cca360f5685f/";
   // const network = clusterApiUrl('devnet');
-
   onMount(async () => {
     wallets = [
       new PhantomWalletAdapter(),
@@ -62,7 +72,7 @@
         myNfts.map(async (nft) => {
           const response = await fetch(nft.uri);
           const metadata = await response.json();
-          if (metadata.animation_url && metadata.image) {
+          if (metadata.animation_url && metadata.image && metadata.name == "Whack A Minion") {
             return {
               nft,
               metadata,
@@ -71,7 +81,7 @@
             return null;
           }
         })
-      ).then((nfts) => nfts.filter((nft) => nft !== null));
+      ).then((nfts) => nfts.filter((nft) => nft));
       for (let i = 0; i < nfts.length; i++) {
         nftAnimationUrls = nfts.map((nft) => nft.metadata.animation_url);
         nftImages = nfts.map((nft) => nft.metadata.image);
@@ -90,13 +100,13 @@
   <main>
     <slot />
     {#if !$walletStore$?.connected}
-    <div class="arcade-image bounce2">
+    <div class="arcade-image justify-center animate-bounce ">
       <img src="/arcade.jpg" alt="" />
       </div>
-      <div class="arcade-intro">
+      <div class="arcade-intro justify-center">
         <div class="wallet-before">
           <h1>minion arcade</h1>
-          <div class="arcade-button">
+          <div class="arcade-button justify-center">
             <WalletProvider {localStorageKey} {wallets} autoConnect />
             <ConnectionProvider {network} />
             <WalletMultiButton />
@@ -120,6 +130,10 @@
       <div class="iframe-container">
         <iframe src={selectedAnimation} title="" loading allowfullscreen=true />
         <div class="iframe-text">
+          <span class="relative left-3 top-3 flex h-3 w-3">
+            <span class="animate-ping absolute left-3 top-3 inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+            <span class="relative left-3 top-3 inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
+          </span>
           <h3>playing: {nftNames[nftAnimationUrls.indexOf(selectedAnimation)]} </h3>
           <h6>
             {nftDescriptions[nftAnimationUrls.indexOf(selectedAnimation)]}
@@ -129,20 +143,22 @@
     {/if}
     {#if $walletStore$.connected && nftAnimationUrls.length > 0}
       <h4>select a game</h4>
-      <div class="card-grid">
+      <div class="card-grid justify-center grid grid-rows-3 grid-flow-row gap-0 drop-shadow-2xl">
         {#each nftImages as nftImage, i}
           <!-- svelte-ignore a11y-click-events-have-key-events -->
           <div
-            class="card"
+            class="drop-shadow-2xl card"
             on:click={() => (selectedAnimation = nftAnimationUrls[i])}
-          >
+          > 
             <img src={nftImage} alt="" />
             <div class="card-overlay">
               <h5>{nftNames[i]}</h5>
             </div>
+            
           </div>
         {/each}
       </div>
+      
     {/if}
   </main>
   <Footer/>
@@ -193,7 +209,6 @@
   .arcade-image {
     width: 100%;
     display: flex;
-    justify-content: center;
     position: relative;
     margin: auto;
     margin-top: 8%;
@@ -202,8 +217,6 @@
   .arcade-button {
     margin: auto;
     display: flex;
-    align-items: center;
-    justify-content: center;
     z-index: 1000;
   }
   .after {
@@ -213,7 +226,6 @@
     border: 5px white solid;
     width: 50%;
     margin: auto;
-    justify-content: center;
     align-items: center;
     margin-top: 0%;
     position: relative;
@@ -221,14 +233,7 @@
     border-radius: 25px;
     box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2);
   }
-  .bounce2 {
-  animation: bounce2 2s ease infinite;
-}
-@keyframes bounce2 {
-	0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-	40% {transform: translateY(-30px);}
-	60% {transform: translateY(-15px);}
-}
+ 
   .iframe-text {
     width: 100%;
     display: flex;
@@ -246,11 +251,10 @@
   .card-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     margin: auto;
-    margin-bottom: 10%;
+    margin-bottom: 30px;
     border: 4px white solid;
-    max-width: 500px;
+    max-width: 600px;
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 25px;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
@@ -264,7 +268,7 @@
     margin-bottom: 2%;
     width: 600px;
     max-width: 100%;
-    height: 100%;
+    height: 900px;
     border-radius: 25px;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
     background-color: rgba(0, 0, 0, 0.5);
