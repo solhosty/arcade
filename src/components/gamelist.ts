@@ -1,1 +1,1 @@
-export const games = [ "Whack A Minion", "Bitsweeper", "Game of Life"]
+export const games = ["Whack A Minion", "Bitsweeper", "Game of Life"];

@@ -89,7 +89,7 @@
   <main>
     <slot />
     {#if !$walletStore$?.connected}
-    <div class="arcade-image justify-center animate-bounce ">
+    <div class="arcade-image justify-center animate-bounce">
       <img src="/arcade.jpg" alt="" />
       </div>
       <div class="arcade-intro justify-center">
@@ -98,13 +98,18 @@
           <div class="arcade-button justify-center">
             <WalletProvider {localStorageKey} {wallets} autoConnect />
             <ConnectionProvider {network} />
-            <WalletMultiButton />
+            <WalletMultiButton>
+              <h2> connect</h2>
+            </WalletMultiButton>
           </div>
-          <h2>connect to enter the arcade.</h2>
+          <h2> select to enter the arcade.</h2>
         </div>
       </div>
     {/if}
     {#if $walletStore$?.connected && !selectedAnimation && nftAnimationUrls.length == 0}
+    <div class="arcade-image justify-center animate-bounce">
+      <img src="/arcade.jpg" alt="" />
+      </div>
     <div class="arcade-intro loading">
       <h1 class="intro-title">minion arcade</h1>
       <div class="progress">
@@ -135,7 +140,7 @@
       </div>
     {/if}
     {#if $walletStore$.connected && nftAnimationUrls.length > 0}
-      <h4>select a game</h4>
+      <h4>Select a game</h4>
       <div class="card-grid justify-center grid grid-rows-3 grid-flow-row gap-0 drop-shadow-2xl">
         {#each nftImages as nftImage, i}
           <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -158,6 +163,7 @@
 </body>
 
 <style>
+  @import url("https://use.typekit.net/ykf5ouy.css");
   @import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,700&family=Gajraj+One&family=Rubik+Mono+One&family=Shantell+Sans:ital,wght@1,700&display=swap");
   .progress{
     position: relative;
@@ -171,14 +177,15 @@
 }
 .title-header { 
   height: 100%;
-  border: 3px white solid;
-  border-radius: 25px 25px 20px 20px;
+  border: 3px white dotted;
+  border-radius: 10px;
 }
 .description-header {
   height: 100%;
-  border: 3px white solid;
-  border-radius: 25px 25px 20px 20px;
+  border: 3px white dotted;
+  border-radius: 10px;
   margin-top: 1%;
+  
 }
 .progress .color{
     position: absolute;
@@ -215,7 +222,7 @@
     display: flex;
     position: relative;
     margin: auto;
-    margin-top: 8%;
+    margin-top: 5%;
     margin-bottom: 0%;
   }
   .arcade-button {
@@ -272,7 +279,7 @@
     margin-bottom: 2%;
     width: 600px;
     max-width: 100%;
-    height: 950px;
+    height: 1000px;
     border-radius: 25px;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
     background-color: rgba(0, 0, 0, 0.5);
@@ -347,7 +354,9 @@
   }
   h3 {
     text-align: center;
-    font-family: "Exo 2", sans-serif;
+    font-family: unibody-8-new, sans-serif;
+    font-weight: 700;
+    font-style: normal;
     color: white;
     position: relative;
     font-size: 2rem;
@@ -358,7 +367,9 @@
   }
   h6 {
     text-align: center;
-    font-family: "Exo 2", sans-serif;
+    font-family: unibody-8-new, sans-serif;
+    font-weight: 400;
+    font-style: italic;
     color: white;
     font-size: 1rem;
     margin-top: 0%;
@@ -371,8 +382,10 @@
   }
   h4 {
     margin-top: 0%;
-    font-family: "Exo 2", sans-serif;
-    font-size: 2rem;
+    font-family: unibody-8-new, sans-serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 1.5rem;
     text-shadow:0 5px 0 #3B3B3B;
     text-align: center;
     margin-bottom: 2%;
@@ -382,8 +395,10 @@
     position: relative;
   }
   h2 {
-    font-family: "Exo 2", sans-serif;
-    font-size: 2rem;
+    font-family: unibody-8-new, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.5rem;
     text-align: center;
     margin-top: 1%;
     color: white;
@@ -395,8 +410,10 @@
     z-index: 1000;
   }
   h1 {
-    font-family: "Gajraj One", cursive;
-    font-size: 4rem;
+    font-family: "unibody-8-new", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+    font-size: 3rem;
     text-align: center;
     text-shadow:0 5px 0 #3B3B3B;
     color: white;
@@ -406,7 +423,7 @@
   }
   .loading {
       position: relative;
-      top: 20%;
+      bottom: 5%;
     }
   @media (max-width: 760px) {
     .wallet-before {
@@ -414,13 +431,13 @@
       top: 0%;
     }
     .iframe-container{
-      height: 900px;
+      height: 1050px;
     }
     iframe {
-      height: 850px;
+      height: 1050px;
     }
     h1 {
-      font-size: 4.5rem;
+      font-size: 3rem;
     }
     .arcade-intro {
       width: 85%;
@@ -428,7 +445,10 @@
     }
     .loading {
       position: relative;
-      top: 20%;
+      bottom: 5%;
+    }
+    .arcade-image {
+      margin-top: 20%;
     }
   }
 </style>
