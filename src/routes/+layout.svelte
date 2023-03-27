@@ -272,7 +272,7 @@
     margin-bottom: 2%;
     width: 600px;
     max-width: 100%;
-    height: 900px;
+    height: 950px;
     border-radius: 25px;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
     background-color: rgba(0, 0, 0, 0.5);
@@ -283,7 +283,7 @@
     width: 60%;
     min-width: 95%;
     margin: auto;
-    height: 100%;
+    height: 900px;
     margin-top: 3%;
     display: flex;
     border-radius: 25px;
