@@ -17,24 +17,13 @@
   import { Connection } from "@solana/web3.js";
   import Footer from "../components/Footer.svelte";
   import "../app.css";
-  
+  import { games } from "../components/gamelist";
   let nftImages = [];
   let nftAnimationUrls = [];
   let nftNames = [];
   let nftDescriptions = [];
   let wallets;
   let walletConnected = false;
-  const games = [
-    {
-      name: "Whack A Minion"
-    },
-    {
-      name: "Bitsweeper"
-    },
-    {
-      name: "Game of Life"
-    },
-  ]
   const localStorageKey = "solWalletAdapter";
   const network = "https://light-autumn-sanctuary.solana-mainnet.discover.quiknode.pro/7779052a9ee594a9e6c09b7d5b28cca360f5685f/";
   // const network = clusterApiUrl('devnet');
@@ -72,7 +61,7 @@
         myNfts.map(async (nft) => {
           const response = await fetch(nft.uri);
           const metadata = await response.json();
-          if (metadata.animation_url && metadata.image && metadata.name == "Whack A Minion") {
+          if (metadata.animation_url && metadata.image && games.includes(metadata.name)) {
             return {
               nft,
               metadata,
@@ -134,10 +123,14 @@
             <span class="animate-ping absolute left-3 top-3 inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
             <span class="relative left-3 top-3 inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
           </span>
-          <h3>playing: {nftNames[nftAnimationUrls.indexOf(selectedAnimation)]} </h3>
+          <div class="title-header"> 
+          <h3>{nftNames[nftAnimationUrls.indexOf(selectedAnimation)]} </h3>
+          </div>
+          <div class="description-header">
           <h6>
             {nftDescriptions[nftAnimationUrls.indexOf(selectedAnimation)]}
           </h6>
+          </div>
         </div>
       </div>
     {/if}
@@ -175,6 +168,17 @@
     align-self: center;
     left: 3%;
     margin-bottom: 5%;
+}
+.title-header { 
+  height: 100%;
+  border: 3px white solid;
+  border-radius: 25px 25px 20px 20px;
+}
+.description-header {
+  height: 100%;
+  border: 3px white solid;
+  border-radius: 25px 25px 20px 20px;
+  margin-top: 1%;
 }
 .progress .color{
     position: absolute;
@@ -342,9 +346,10 @@
     margin: auto;
   }
   h3 {
-    text-align: left;
+    text-align: center;
     font-family: "Exo 2", sans-serif;
     color: white;
+    position: relative;
     font-size: 2rem;
     margin-top: 0%;
     margin-bottom: 2%;
@@ -361,6 +366,7 @@
     width: 100%;
     margin-right: 20px;
     margin-bottom: 2%;
+    margin-top: 2%;
     font-style: italic;
   }
   h4 {
