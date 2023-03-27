@@ -96,9 +96,9 @@
         <div class="wallet-before">
           <h1>minion arcade</h1>
           <div class="arcade-button justify-center">
-            <WalletProvider {localStorageKey} {wallets} autoConnect />
-            <ConnectionProvider {network} />
-            <WalletMultiButton>
+            <WalletProvider {localStorageKey} {wallets} autoConnect class="wallets"/>
+            <ConnectionProvider {network} class="wallets"/>
+            <WalletMultiButton class="wallets">
               <h2> connect</h2>
             </WalletMultiButton>
           </div>
@@ -143,12 +143,18 @@
       <h4>Select a game</h4>
       <div class="card-grid justify-center grid grid-rows-3 grid-flow-row gap-0 drop-shadow-2xl">
         {#each nftImages as nftImage, i}
-          <!-- svelte-ignore a11y-click-events-have-key-events -->
           <div
+            role="button"
+            tabindex="0"
             class="drop-shadow-2xl card"
             on:click={() => (selectedAnimation = nftAnimationUrls[i])}
+            on:keydown={event => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                selectedAnimation = nftAnimationUrls[i];
+              }
+            }}>
           > 
-            <img src={nftImage} alt="" />
+            <img src={nftImage} alt="" class="card-img" />
             <div class="card-overlay">
               <h5>{nftNames[i]}</h5>
             </div>
@@ -175,6 +181,10 @@
     left: 3%;
     margin-bottom: 5%;
 }
+.card-img {
+  position: relative;
+  bottom: 25%;
+}
 .title-header { 
   height: 100%;
   border: 3px white dotted;
@@ -195,6 +205,11 @@
     border-radius: 15px;
     animation: progres 12s infinite linear;    
 }
+:global(.wallet-adapter-button-trigger) {
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 10px;
+    color: black;
+  }
 @keyframes progres {
     0%{
       width: 0%;
@@ -305,6 +320,7 @@
     width: 100px;
     max-width: 95%;
     height: 100px;
+    margin-bottom: 5%;
     overflow: hidden;
     cursor: pointer;
     border-radius: 10px;
@@ -402,6 +418,7 @@
     text-align: center;
     margin-top: 1%;
     color: white;
+    margin-bottom: 2%;
     text-shadow:0 5px 0 #3B3B3B;
   }
   .wallet-before {
