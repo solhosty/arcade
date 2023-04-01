@@ -18,10 +18,8 @@
   import Footer from "../components/Footer.svelte";
   import "../app.css";
   import { games } from "../components/gamelist";
-  let nftImages = [];
-  let nftAnimationUrls = [];
-  let nftNames = [];
-  let nftDescriptions = [];
+  import { browser } from "$app/environment";
+  import { fade, fly } from "svelte/transition";
   let wallets;
   let walletConnected = false;
   const localStorageKey = "solWalletAdapter";
@@ -47,7 +45,11 @@
       walletConnected = false;
     }
   }
- 
+  //fetch nfts
+  let nftImages = [];
+  let nftAnimationUrls = [];
+  let nftNames = [];
+  let nftDescriptions = [];
   let selectedAnimation = null;
   const getNFTs = async () => {
       const connection = new Connection(network);
@@ -79,8 +81,12 @@
       }
     }
     $: {
-    if (walletConnected) {
+    if (browser && $walletStore$.publicKey) {
       getNFTs();
+    }
+    else {
+      console.log("Wallet is not connected.")
+      
     }
   }
 
@@ -96,9 +102,9 @@
         <div class="wallet-before">
           <h1>minion arcade</h1>
           <div class="arcade-button justify-center">
-            <WalletProvider {localStorageKey} {wallets} autoConnect class="wallets"/>
-            <ConnectionProvider {network} class="wallets"/>
-            <WalletMultiButton class="wallets">
+            <WalletProvider {localStorageKey} {wallets} autoConnect/>
+            <ConnectionProvider {network}/>
+            <WalletMultiButton>
               <h2> connect</h2>
             </WalletMultiButton>
           </div>
@@ -118,11 +124,11 @@
     </div>
     {/if}
     {#if ($walletStore$.connected && selectedAnimation) || nftAnimationUrls.length > 0}
-      <h1 class="after">minion arcade</h1>
+      <h1 class="after" transition:fade>minion arcade</h1>
     {/if}
     {#if $walletStore$.connected && selectedAnimation}
-      <div class="iframe-container">
-        <iframe src={selectedAnimation} title="" loading allowfullscreen=true />
+      <div class="iframe-container" transition:fly>
+        <iframe src={selectedAnimation} title="" loading allowfullscreen=true  />
         <div class="iframe-text">
           <span class="relative left-3 top-3 flex h-3 w-3">
             <span class="animate-ping absolute left-3 top-3 inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
@@ -140,13 +146,16 @@
       </div>
     {/if}
     {#if $walletStore$.connected && nftAnimationUrls.length > 0}
-      <h4>Select a game</h4>
+      <h4 transition:fade>Select a game</h4>
+      
       <div class="card-grid justify-center grid grid-rows-3 grid-flow-row gap-0 drop-shadow-2xl">
         {#each nftImages as nftImage, i}
+        
           <div
             role="button"
             tabindex="0"
             class="drop-shadow-2xl card"
+            transition:fly
             on:click={() => (selectedAnimation = nftAnimationUrls[i])}
             on:keydown={event => {
               if (event.key === 'Enter' || event.key === ' ') {
@@ -181,6 +190,7 @@
     left: 3%;
     margin-bottom: 5%;
 }
+
 .card-img {
   position: relative;
   bottom: 25%;
@@ -316,11 +326,11 @@
   .card {
     position: relative;
     margin: 10px;
-    margin-top: 5%;
-    width: 100px;
-    max-width: 95%;
+    margin-top: 2%;
+    width: 100%;
+    max-width: 100px;
     height: 100px;
-    margin-bottom: 5%;
+    margin-bottom: 2%;
     overflow: hidden;
     cursor: pointer;
     border-radius: 10px;

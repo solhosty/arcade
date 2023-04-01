@@ -2,8 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-:global(.wallet-adapter-button-trigger) {
-    background-color: red;
-    border-radius: 10px;
-    color: black;
-  }
