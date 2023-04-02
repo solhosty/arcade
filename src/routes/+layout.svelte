@@ -18,7 +18,6 @@
   import Footer from "../components/Footer.svelte";
   import "../app.css";
   import { games } from "../components/gamelist";
-  import { browser } from "$app/environment";
   import { fade, fly } from "svelte/transition";
   let wallets;
   let walletConnected = false;
@@ -40,6 +39,7 @@
     if ($walletStore$?.connected) {
       console.log("Wallet Connected.");
       walletConnected = true;
+      getNFTs();
     } else {
       console.log("Wallet Not Connected.");
       walletConnected = false;
@@ -51,6 +51,7 @@
   let nftNames = [];
   let nftDescriptions = [];
   let selectedAnimation = null;
+  let loading = true;
   const getNFTs = async () => {
       const connection = new Connection(network);
       const wallet = $walletStore$;
@@ -79,16 +80,9 @@
         nftNames = nfts.map((nft) => nft.metadata.name);
         nftDescriptions = nfts.map((nft) => nft.metadata.description);
       }
-    }
-    $: {
-    if (browser && $walletStore$.publicKey) {
-      getNFTs();
-    }
-    else {
-      console.log("Wallet is not connected.")
-      
-    }
-  }
+
+    };
+  
 
 </script>
 <body>
@@ -112,7 +106,7 @@
         </div>
       </div>
     {/if}
-    {#if $walletStore$?.connected && !selectedAnimation && nftAnimationUrls.length == 0}
+    {#if $walletStore$?.connected && loading}
     <div class="arcade-image justify-center animate-bounce">
       <img src="/arcade.jpg" alt="" />
       </div>
@@ -201,10 +195,11 @@
   border-radius: 10px;
 }
 .description-header {
-  height: 100%;
+  max-height: 100%;
   border: 3px white dotted;
   border-radius: 10px;
   margin-top: 1%;
+
   
 }
 .progress .color{
@@ -404,6 +399,8 @@
     margin-right: 20px;
     margin-bottom: 2%;
     margin-top: 2%;
+    max-height: 100px;
+    overflow: scroll;
     font-style: italic;
   }
   h4 {

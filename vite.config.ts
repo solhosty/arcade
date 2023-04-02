@@ -31,7 +31,6 @@ build : {
   target: "es2020",
   rollupOptions : {
       plugins : [
-          // Important for wallet adapter to work.
           inject({ Buffer: ['buffer', 'Buffer'] })
       ]
   }
