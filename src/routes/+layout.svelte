@@ -18,7 +18,9 @@
   import Footer from "../components/Footer.svelte";
   import "../app.css";
   import { games } from "../components/gamelist";
+  import { browser } from "$app/environment";
   import { fade, fly } from "svelte/transition";
+  import { get } from "svelte/store";
   let wallets;
   let walletConnected = false;
   const localStorageKey = "solWalletAdapter";
@@ -80,6 +82,7 @@
         nftNames = nfts.map((nft) => nft.metadata.name);
         nftDescriptions = nfts.map((nft) => nft.metadata.description);
       }
+      loading = false;
 
     };
   
