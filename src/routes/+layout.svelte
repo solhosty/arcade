@@ -37,16 +37,14 @@
       console.log("No wallets found.");
     }
   });
-  $: {
-    if ($walletStore$?.connected) {
-      console.log("Wallet Connected.");
-      walletConnected = true;
-      getNFTs();
-    } else {
-      console.log("Wallet Not Connected.");
-      walletConnected = false;
-    }
-  }
+  $: if ($walletStore$?.connected) {
+  console.log("Wallet Connected.");
+  walletConnected = true;
+  getNFTs();
+  } else {
+  console.log("Wallet Not Connected.");
+  walletConnected = false;
+}
   //fetch nfts
   let nftImages = [];
   let nftAnimationUrls = [];
@@ -286,7 +284,6 @@
     display: flex;
     flex-wrap: wrap;
     margin: auto;
-    margin-bottom: 30px;
     border: 4px white solid;
     max-width: 600px;
     background-color: rgba(0, 0, 0, 0.5);
