@@ -18,11 +18,10 @@
   import Footer from "../components/Footer.svelte";
   import "../app.css";
   import { games } from "../components/gamelist";
-  import { browser } from "$app/environment";
   import { fade, fly } from "svelte/transition";
-  import { get } from "svelte/store";
+
   let wallets;
-  let walletConnected = false;
+  let walletConnected = false
   const localStorageKey = "solWalletAdapter";
   const network = "https://light-autumn-sanctuary.solana-mainnet.discover.quiknode.pro/7779052a9ee594a9e6c09b7d5b28cca360f5685f/";
   // const network = clusterApiUrl('devnet');
@@ -62,20 +61,28 @@
         owner: wallet.publicKey,
       });
       const nfts = await Promise.all(
-        myNfts.map(async (nft) => {
-          const response = await fetch(nft.uri);
-          const metadata = await response.json();
-          if (metadata.animation_url && metadata.image && games.includes(metadata.name)) {
-            return {
-              nft,
-              metadata,
-            };
-          } else {
-            return null;
-          }
-        })
-      ).then((nfts) => nfts.filter((nft) => nft));
-      for (let i = 0; i < nfts.length; i++) {
+		  myNfts.map(async (nft) => {
+			console.log(nft)
+			try {
+				const response = await fetch(nft.uri);
+				const metadata = await response.json();
+			if (metadata.animation_url && games.includes(metadata.name)) {
+				return {
+					nft,
+					metadata
+					// add selected property
+				};
+			} else {
+				return null;
+			}
+			} catch (error) {
+				console.log(error);
+			}
+			
+			
+		})
+	).then((nfts) => nfts.filter((nft) => nft));
+    for (let i = 0; i < nfts.length; i++) {
         nftAnimationUrls = nfts.map((nft) => nft.metadata.animation_url);
         nftImages = nfts.map((nft) => nft.metadata.image);
         nftNames = nfts.map((nft) => nft.metadata.name);
