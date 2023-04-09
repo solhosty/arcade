@@ -38,13 +38,14 @@
     }
   });
   $: if ($walletStore$?.connected) {
-  console.log("Wallet Connected.");
-  walletConnected = true;
-  getNFTs();
-  } else {
-  console.log("Wallet Not Connected.");
-  walletConnected = false;
-}
+      console.log("Wallet Connected.");
+      getNFTs();
+      walletConnected = true;
+    } else {
+      console.log("Wallet Not Connected.");
+      walletConnected = false;
+    }
+  
   //fetch nfts
   let nftImages = [];
   let nftAnimationUrls = [];
@@ -201,7 +202,6 @@
   border-radius: 10px;
   margin-top: 1%;
 
-  
 }
 .progress .color{
     position: absolute;
@@ -284,6 +284,7 @@
     display: flex;
     flex-wrap: wrap;
     margin: auto;
+    margin-bottom: 30px;
     border: 4px white solid;
     max-width: 600px;
     background-color: rgba(0, 0, 0, 0.5);
