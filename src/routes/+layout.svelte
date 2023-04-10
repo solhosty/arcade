@@ -78,8 +78,6 @@
 			} catch (error) {
 				console.log(error);
 			}
-			
-			
 		})
 	).then((nfts) => nfts.filter((nft) => nft));
     for (let i = 0; i < nfts.length; i++) {
@@ -131,15 +129,12 @@
     {/if}
     {#if $walletStore$.connected && selectedAnimation}
       <div class="iframe-container" transition:fly>
-        <iframe src={selectedAnimation} title="" loading allowfullscreen=true  />
-        <div class="iframe-text">
-          <span class="relative left-3 top-3 flex h-3 w-3">
-            <span class="animate-ping absolute left-3 top-3 inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-            <span class="relative left-3 top-3 inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
-          </span>
-          <div class="title-header"> 
+        <div class="title-header"> 
           <h3>{nftNames[nftAnimationUrls.indexOf(selectedAnimation)]} </h3>
           </div>
+        <iframe src={selectedAnimation} title="" loading allowfullscreen=true  />
+        <div class="iframe-text">
+  
           <div class="description-header">
           <h6>
             {nftDescriptions[nftAnimationUrls.indexOf(selectedAnimation)]}
@@ -150,7 +145,6 @@
     {/if}
     {#if $walletStore$.connected && nftAnimationUrls.length > 0}
       <h4 transition:fade>Select a game</h4>
-      
       <div class="card-grid justify-center grid grid-rows-3 grid-flow-row gap-0 drop-shadow-2xl">
         {#each nftImages as nftImage, i}
         
@@ -199,9 +193,9 @@
   bottom: 25%;
 }
 .title-header { 
-  height: 100%;
-  border: 3px white dotted;
+  height: 100px;
   border-radius: 10px;
+  margin-top: 2%;
 }
 .description-header {
   max-height: 100%;
@@ -319,7 +313,7 @@
     min-width: 95%;
     margin: auto;
     height: 900px;
-    margin-top: 3%;
+    margin-top: 0%;
     display: flex;
     border-radius: 25px;
     margin-bottom: 0%;
