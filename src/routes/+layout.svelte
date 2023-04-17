@@ -109,7 +109,10 @@
               <h2> connect</h2>
             </WalletMultiButton>
           </div>
-          <h2> select to enter the arcade.</h2>
+          <h2>  open in the phantom app </h2>
+          <a href="https://phantom.app/ul/browse/https%3A%2F%2Fminion-arcade.vercel.app%2F?ref=https%3A%2F%2Fminion-arcade.vercel.app%2F">
+          <button class="p-button"> <h2>Phantom</h2> </button>
+        </a>
         </div>
       </div>
     {/if}
@@ -159,7 +162,7 @@
                 selectedAnimation = nftAnimationUrls[i];
               }
             }}>
-          > 
+          
             <img src={nftImage} alt="" class="card-img" />
             <div class="card-overlay">
               <h5>{nftNames[i]}</h5>
@@ -203,6 +206,15 @@
   border-radius: 10px;
   margin-top: 1%;
 
+}
+.p-button { 
+  width: 300px;
+  margin: auto;
+  border: 3px white solid;
+  display: flex;
+  justify-content: center;
+  border-radius: 20px;
+  margin-bottom: 5%;
 }
 .progress .color{
     position: absolute;
