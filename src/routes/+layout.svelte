@@ -300,8 +300,8 @@
     display: flex;
     position: relative;
     margin: auto;
-    margin-top: 5%;
-    margin-bottom: 0%;
+    margin-top: 20%;
+    margin-bottom: 3%;
   }
   .card-img {
     width: 100%;
@@ -443,6 +443,7 @@
     font-style: normal;
     color: white;
     position: relative;
+    
     font-size: 2rem;
     text-shadow:0 5px 0 #3B3B3B;
     margin: auto;

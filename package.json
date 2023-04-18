@@ -45,6 +45,7 @@
 		"@solana/wallet-adapter-wallets": "^0.19.15",
 		"@solana/web3.js": "^1.73.3",
 		"@svelte-on-solana/wallet-adapter-core": "^1.0.11-alpha.0",
+		"@tanstack/svelte-query": "^4.29.1",
 		"daisyui": "^2.51.5",
 		"dotenv": "^16.0.3",
 		"node-stdlib-browser": "^1.2.0",

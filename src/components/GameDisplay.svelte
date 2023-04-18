@@ -1,9 +1,9 @@
 <script>
 	// @ts-nocheck
 	import { createQuery } from '@tanstack/svelte-query';
-	import { getGames } from '../../api/solana/getGames.ts';
-	import { userPublicKey } from '../../api/wallets/stores.ts';
-	import '../../app.css'
+	import { getGames } from '../lib/getGames.ts';
+	import { userPublicKey } from '../lib/stores.ts';
+	import '../app.css'
 
     let cachedNFTs = localStorage.getItem('nftGames');
     let shouldFetchNFTs = !cachedNFTs;

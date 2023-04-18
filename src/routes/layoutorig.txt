@@ -1,0 +1,158 @@
+<script lang="ts">
+	// @ts-nocheck
+	import { onMount } from 'svelte';
+	import {
+		WalletProvider,
+		ConnectionProvider,
+		WalletMultiButton
+	} from '@svelte-on-solana/wallet-adapter-ui';
+	import { walletStore as walletStore$ } from '@svelte-on-solana/wallet-adapter-core';
+	import {
+		PhantomWalletAdapter,
+		BackpackWalletAdapter,
+		LedgerWalletAdapter,
+		SolflareWalletAdapter
+	} from '@solana/wallet-adapter-wallets';
+	import Footer from '../components/Footer.svelte';
+	import '../app.css';
+	import { userPublicKey } from '$lib/stores';
+	import GameDisplay from '../components/GameDisplay.svelte';
+	import { QueryClientProvider } from '@tanstack/svelte-query';
+	import type { LayoutData } from './$types';
+	import { PUBLIC_RPC_HOST} from '$env/static/public';
+	export let data: LayoutData;
+
+	let wallets;
+	const localStorageKey = 'solWalletAdapter';
+	const network = PUBLIC_RPC_HOST;
+	// const network = clusterApiUrl('devnet');
+	onMount(async () => {
+		wallets = [
+			new PhantomWalletAdapter(),
+			new BackpackWalletAdapter(),
+			new SolflareWalletAdapter(),
+			new LedgerWalletAdapter()
+		];
+		if (wallets.length == 0) {
+			console.log('No wallets found.');
+		}
+	});
+	$: {
+		if ($walletStore$?.connected) {
+			console.log('Wallet Connected.');
+			userPublicKey.set($walletStore$.publicKey);
+		} else {
+			console.log('Wallet Not Connected.');
+			userPublicKey.set('');
+		}
+	}
+</script>
+
+<title> Arcade</title>
+<body class="g-body h-full flex flex-col w-full m-auto text-white p-0">
+	<main class="g-main h-full w-full m-auto">
+		{#if !$walletStore$?.connected}
+			<div class="arcade-image justify-center animate-bounce mt-6 mb-0">
+				<img class="a-img w-40 flex mb-0 m-auto" src="/images/arcade.jpg" alt="" />
+			</div>
+			<div class="arcade-intro justify-center mt-0">
+				<div class="wallet-before">
+					<h1>minion arcade</h1>
+					<div class="arcade-button justify-center m-auto flex">
+						<WalletProvider {localStorageKey} {wallets} autoConnect class="wallets" />
+						<ConnectionProvider {network} class="wallets" />
+						<WalletMultiButton class="wallets">
+							<h2>connect</h2>
+						</WalletMultiButton>
+					</div>
+					<h2>select to enter the arcade.</h2>
+				</div>
+			</div>
+		{:else if $walletStore$?.connected}
+			<QueryClientProvider client={data.queryClient}>
+				<GameDisplay />
+			</QueryClientProvider>
+		{/if}
+	</main>
+</body>
+<Footer />
+
+<style>
+	@import url('https://use.typekit.net/ykf5ouy.css');
+	@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,700&family=Gajraj+One&family=Rubik+Mono+One&family=Shantell+Sans:ital,wght@1,700&display=swap');
+
+	.g-body {
+		background-image: radial-gradient(#e83232, #eb5d5d);
+	}
+
+	.g-main {
+		max-width: 600px;
+	}
+
+	.wallet-before {
+		position: relative;
+		top: 20%;
+		z-index: 1;
+	}
+
+	:global(.wallet-adapter-button-trigger) {
+		background-color: rgba(0, 0, 0, 0.3);
+		border-radius: 10px;
+		color: white;
+		font-family: 'proxima-nova-condensed', sans-serif;
+		margin: auto;
+		justify-content: center;
+		position: relative;
+		left: 0%;
+		box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
+	}
+
+	.arcade-intro {
+		border: 5px white solid;
+		bottom: 14%;
+		margin: auto;
+		border-radius: 25px;
+		box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2);
+	}
+
+	h1 {
+		font-family: 'unibody-8-new', sans-serif;
+		font-weight: 900;
+		font-style: normal;
+		font-size: 3rem;
+		text-align: center;
+		text-shadow: 0 5px 0 #3b3b3b;
+		margin-bottom: 1%;
+	}
+
+	h2 {
+		font-family: unibody-8-new, sans-serif;
+		font-weight: 400;
+		font-style: normal;
+		font-size: 1.5rem;
+		text-align: center;
+		margin-top: 1%;
+		margin-bottom: 2%;
+		text-shadow: 0 5px 0 #3b3b3b;
+	}
+
+	@media (max-width: 760px) {
+		.wallet-before {
+			position: relative;
+			top: 0%;
+		}
+
+		h1 {
+			font-size: 3rem;
+		}
+		.arcade-intro {
+			width: 85%;
+			margin-top: 4%;
+
+		}
+
+		.arcade-image {
+			margin-top: 20%;
+		}
+	}
+</style>
