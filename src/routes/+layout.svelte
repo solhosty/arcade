@@ -50,6 +50,7 @@
   let nftAnimationUrls = [];
   let nftNames = [];
   let nftDescriptions = [];
+  let nftTokenAddresses = [];
   let selectedAnimation = null;
   let loading = true;
   const getNFTs = async () => {
@@ -85,6 +86,7 @@
         nftImages = nfts.map((nft) => nft.metadata.image);
         nftNames = nfts.map((nft) => nft.metadata.name);
         nftDescriptions = nfts.map((nft) => nft.metadata.description);
+        nftTokenAddresses = nfts.map((nft) => nft.nft.mintAddress);
       }
       loading = false;
 
@@ -109,7 +111,7 @@
               <h2> connect</h2>
             </WalletMultiButton>
           </div>
-          <h2>  open in the phantom app </h2>
+          <p>  open in the phantom app </p>
           <a href="https://phantom.app/ul/browse/https%3A%2F%2Fminion-arcade.vercel.app%2F?ref=https%3A%2F%2Fminion-arcade.vercel.app%2F">
           <button class="p-button"> <h2>Phantom</h2> </button>
         </a>
@@ -136,17 +138,26 @@
           <h3>{nftNames[nftAnimationUrls.indexOf(selectedAnimation)]} </h3>
           </div>
         <iframe src={selectedAnimation} title="" loading allowfullscreen=true  />
+        <div class="button-row">
+          <a href="https://magiceden.io/item-details/{nftTokenAddresses[nftAnimationUrls.indexOf(selectedAnimation)]}" target="_blank">
+          <button class="marketplace-btn"> <img class="h-full w-full" src="https://next.cdn.magiceden.dev/_next/static/media/logo_sol.3a1280e7.png" alt=""/> </button>
+          </a>
+          <a href="https://exchange.art/single/{nftTokenAddresses[nftAnimationUrls.indexOf(selectedAnimation)]}" target="_blank">
+            <button class="marketplace-btn ea"> <img class="h-full w-full" src="/image.svg" alt=""/> </button>
+            </a>
+
+        </div>
         <div class="iframe-text">
-  
           <div class="description-header">
-          <h6>
+          <p>
             {nftDescriptions[nftAnimationUrls.indexOf(selectedAnimation)]}
-          </h6>
+          </p>
           </div>
         </div>
       </div>
     {/if}
     {#if $walletStore$.connected && nftAnimationUrls.length > 0}
+    <div>
       <h4 transition:fade>Select a game</h4>
       <div class="card-grid justify-center grid grid-rows-3 grid-flow-row gap-0 drop-shadow-2xl">
         {#each nftImages as nftImage, i}
@@ -169,7 +180,9 @@
             </div>
             
           </div>
+          
         {/each}
+      </div>
       </div>
       
     {/if}
@@ -190,11 +203,36 @@
     left: 3%;
     margin-bottom: 5%;
 }
-
-.card-img {
-  position: relative;
-  bottom: 25%;
+.color {
+  margin-bottom: 5%;
 }
+.button-row { 
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  margin-top: 3%;
+  margin-bottom: 0%;
+  width: 320px;
+  max-width: 100%;
+}
+.ea {
+  position: relative;
+  left: 5%;
+}
+.marketplace-btn {
+  width: 100%;
+  height: 40px;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  background-color: rgba(0, 0, 0, .5);
+  border-radius: 10px;
+  margin-left: 10%;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .5);
+
+}
+
+
 .title-header { 
   height: 100px;
   border-radius: 10px;
@@ -202,19 +240,22 @@
 }
 .description-header {
   max-height: 100%;
-  border: 3px white dotted;
   border-radius: 10px;
-  margin-top: 1%;
-
+  margin-top: 0%;
+  margin: auto;
 }
 .p-button { 
-  width: 300px;
+  width: 200px;
   margin: auto;
-  border: 3px white solid;
   display: flex;
   justify-content: center;
-  border-radius: 20px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, .5);
   margin-bottom: 5%;
+}
+.p-button:hover {
+  background-color: rgb(38, 38, 65);
+  color: black;
 }
 .progress .color{
     position: absolute;
@@ -249,7 +290,9 @@
   img {
     width: 200px;
     display: flex;
+    height: 100%;
     margin-bottom: 0%;
+    margin: auto;
   }
   .arcade-image {
     width: 100%;
@@ -258,6 +301,10 @@
     margin: auto;
     margin-top: 5%;
     margin-bottom: 0%;
+  }
+  .card-img {
+    width: 100%;
+    height: 100%;
   }
   .arcade-button {
     margin: auto;
@@ -297,9 +344,8 @@
     display: flex;
     flex-wrap: wrap;
     margin: auto;
-    margin-bottom: 30px;
     border: 4px white solid;
-    max-width: 600px;
+    max-width: 750px;
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 25px;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
@@ -311,7 +357,7 @@
     flex-direction: column;
     margin-top: 0%;
     margin-bottom: 2%;
-    width: 600px;
+    width: 750px;
     max-width: 100%;
     height: 1000px;
     border-radius: 25px;
@@ -321,7 +367,7 @@
     background-size: cover;
   }
   iframe {
-    width: 60%;
+    width: 80%;
     min-width: 95%;
     margin: auto;
     height: 900px;
@@ -330,6 +376,7 @@
     border-radius: 25px;
     margin-bottom: 0%;
     border: none;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .5);
   }
 
   .card {
@@ -354,6 +401,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    
   }
 
   .card-overlay {
@@ -395,12 +443,10 @@
     color: white;
     position: relative;
     font-size: 2rem;
-    margin-top: 0%;
-    margin-bottom: 2%;
     text-shadow:0 5px 0 #3B3B3B;
     margin: auto;
   }
-  h6 {
+  p {
     text-align: center;
     font-family: unibody-8-new, sans-serif;
     font-weight: 400;
@@ -413,9 +459,7 @@
     margin-right: 20px;
     margin-bottom: 2%;
     margin-top: 2%;
-    max-height: 100px;
-    overflow: scroll;
-    font-style: italic;
+   
   }
   h4 {
     margin-top: 0%;
@@ -439,7 +483,6 @@
     text-align: center;
     margin-top: 1%;
     color: white;
-    margin-bottom: 2%;
     text-shadow:0 5px 0 #3B3B3B;
   }
   .wallet-before {
