@@ -300,7 +300,7 @@
     display: flex;
     position: relative;
     margin: auto;
-    margin-top: 20%;
+    margin-top: 10%;
     margin-bottom: 3%;
   }
   .card-img {
