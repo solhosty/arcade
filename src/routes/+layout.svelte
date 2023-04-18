@@ -140,7 +140,7 @@
         <iframe src={selectedAnimation} title="" loading allowfullscreen=true  />
         <div class="button-row">
           <a href="https://magiceden.io/item-details/{nftTokenAddresses[nftAnimationUrls.indexOf(selectedAnimation)]}" target="_blank">
-          <button class="marketplace-btn"> <img class="h-full w-full" src="https://next.cdn.magiceden.dev/_next/static/media/logo_sol.3a1280e7.png" alt=""/> </button>
+          <button class="marketplace-btn"> <img class="me-img" src="https://www.solanaterminal.com/media/magic-eden.png" alt=""/> </button>
           </a>
           <a href="https://exchange.art/single/{nftTokenAddresses[nftAnimationUrls.indexOf(selectedAnimation)]}" target="_blank">
             <button class="marketplace-btn ea"> <img class="h-full w-full" src="/image.svg" alt=""/> </button>
@@ -214,10 +214,11 @@
   margin-bottom: 0%;
   width: 320px;
   max-width: 100%;
+  margin-left: 2%;
 }
-.ea {
-  position: relative;
-  left: 5%;
+.me-img { 
+  width: 60px;
+  max-width: 100%;
 }
 .marketplace-btn {
   width: 100%;
@@ -469,7 +470,7 @@
     font-size: 1.5rem;
     text-shadow:0 5px 0 #3B3B3B;
     text-align: center;
-    margin-bottom: 2%;
+    margin-bottom: 1%;
     color: white;
     display: flex;
     flex-direction: column;
